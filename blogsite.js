@@ -147,34 +147,18 @@ const submitEmail = document.getElementById("email-submit");
 const errorMessage = document.getElementById("error");
 const emailOptin = document.getElementById("email-optin");
 
-getEmail.addEventListener("input", e => {
+emailOptin.addEventListener("change", e => {
   e.preventDefault();
-  if (!getEmail.input === "") {
-    submitEmail.removeAttribute("disabled");
+  var redEx = /\S+@\S+\.\S+/;
+  if (redEx.test(getEmail.value)) {
+    submitEmail.disabled = false;
     errorMessage.innerHTML = "Thank you for subscribing";
     errorMessage.style.color = "green";
+
   } else {
-    submitEmail.setAttribute("disabled", true);
-    // errorMessage.textContent = "This can't be empty";
-    // errorMessage.style.color = "red";
+    submitEmail.disabled = true;
+    errorMessage.textContent = "This can't be empty";
+    errorMessage.style.color = "red";
   }
-  emailOptin.reset();
+
 });
-
-// Contact Us Form
-
-const hideForm = document.getElementById("form");
-const getButton = document.getElementById("createBtn");
-getButton.addEventListener(
-  "click",
-  () => {
-    if (hideForm.className === "row") {
-      hideForm.classList.add("d-none");
-      getButton.innerHTML = "<i class='fas fa-times'>";
-    } else {
-      hideForm.classList.remove("d-none");
-      getButton.innerHTML = "<i class='fas fa-plus'>";
-    }
-  },
-  false
-);
